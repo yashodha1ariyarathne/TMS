@@ -1,5 +1,5 @@
 var connection = require('./../database');
-module.exports.addteacher=function(req,res){
+module.exports.viewteacher=function(req,res){
 
     
 }

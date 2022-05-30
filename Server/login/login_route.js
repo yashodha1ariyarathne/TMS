@@ -1,5 +1,5 @@
-var connection = require( './index');
-module.exports.authenticate=function(req,res){
+var connection = require('./../database');
+module.exports.authenticatelogin=function(req,res){
     var username=req.body.username;
     var password=req.body.password;
     
