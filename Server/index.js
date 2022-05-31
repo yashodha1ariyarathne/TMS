@@ -12,12 +12,12 @@ var attendanceController=require('./attendance/attendance_view');
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
 
-app.post('/api/authenticatelogin',authenticateControllerlogin.authenticatelogin);
-app.post('/api/authenticatemanage',authenticateControllermanage.authenticatemanage);
-app.post('/api/addteacher',adminControlleradd.addteacher);
-app.post('/api/removeteacher',adminControllerremove.removeteacher);
-app.post('/api/viewteacher',adminControllerview.viewteacher);
-app.post('/api/viewattendance',attendanceController.viewattendance);
+app.post('/./authenticatelogin',authenticateControllerlogin.authenticatelogin);
+app.post('/./authenticatemanage',authenticateControllermanage.authenticatemanage);
+app.post('/./addteacher',adminControlleradd.addteacher);
+app.post('/./removeteacher',adminControllerremove.removeteacher);
+app.post('/./viewteacher',adminControllerview.viewteacher);
+app.post('/./viewattendance',attendanceController.viewattendance);
 
 
 app.listen(8012);
