@@ -1,4 +1,4 @@
-var mysql = require('mysql');
+var mysql = require('mysql2');
 var conn = mysql.createConnection({
   host: '127.0.0.1', 
   user: 'root', 
@@ -6,7 +6,21 @@ var conn = mysql.createConnection({
   database: 'tms' 
 }); 
 conn.connect(function(err) {
-  if (err) throw err;
-  console.log('Database is connected successfully !');
+    return new Promise( ( resolve, reject )=>{
+  
+      if( !err ){
+  
+        resolve(console.log('Database is connected successfully !') )
+  
+      }
+  
+      else{
+  
+        reject( console.log("error") )
+  
+      }
+  
+    })
+  
 });
-module.exports = conn;
+module.exports = conn.promise();
