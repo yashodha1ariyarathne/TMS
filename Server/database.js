@@ -6,6 +6,8 @@ var conn = mysql.createConnection({
   database: 'tms' 
 }); 
 conn.connect(function(err) {
+  
+
     return new Promise( ( resolve, reject )=>{
   
       if( !err ){
@@ -23,4 +25,6 @@ conn.connect(function(err) {
     })
   
 });
-module.exports = conn.promise();
+var userDB = [];
+  
+module.exports = { userDB };

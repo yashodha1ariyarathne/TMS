@@ -1,29 +1,57 @@
 var conn = require('./../database');
 
-exports.authenticatelogin = async (req,res,next) =>{
+var express = require('express');
 
-    try{
+var bcrypt = require('bcrypt');
+var path = require("path");
+var bodyParser = require('body-parser');
 
-        var [row] = await conn.execute(
-            "SELECT * FROM `teacherslogin` WHERE `username`=?",
-            [req.body.username]
-          );
-        var usernameMatch = await compare(req.body.username, row[0].username);
-        if (! usernameMatch) {
-            return res.status(422).json({
-                message: "Invalid username address",
-            });
-        }
 
-        var passMatch = await compare(req.body.password, row[0].password);
-        if(!passMatch){
-            return res.status(422).json({
-                message: "Incorrect password",
-            });
-        }
+const app = express(); 
 
-    }
-    catch(err){
-        next(err);
-    }
+
+app.use(bodyParser.urlencoded({extended: false}));
+
+var serveStatic = require('serve-static')
+
+
+app.use(serveStatic(path.join(__dirname, 'Server')))
+app.use(serveStatic(path.join(__dirname, 'UI')))
+
+
+app.post('/authenticatelogin', async(request, response) =>{
+	try{
+		var username = request.body.username;
+		var password = request.body.password;
+
+		if (username && password) {
+
+			await conn.query('SELECT * FROM teacherlogin WHERE username = ? AND password = ?', [username, password], (results)=> {
+				
+				if (results.length > 0) {
+
+					request.session.loggedin = true;
+					request.session.username = username;
+					response.redirect('/index');
+				} 
+				else {
+
+					response.send('Incorrect Username and/or Password!');
+				}
+				
+				response.end();
+			});
+			
+		} else {
+			response.send('Please enter Username and Password!');
+			response.end();
+
+		}
 }
+	catch{
+		res.send("Internal server error");
+	}
+});
+
+app.listen(8012);
+
