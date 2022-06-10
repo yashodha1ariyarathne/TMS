@@ -25,6 +25,5 @@ conn.connect(function(err) {
     })
   
 });
-var userDB = [];
   
-module.exports = { userDB };
+module.exports = conn;
